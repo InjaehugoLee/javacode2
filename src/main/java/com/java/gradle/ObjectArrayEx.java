@@ -1,12 +1,14 @@
 package com.java.gradle;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 class Person{
     private String name;
     private int age;
     private String address;
 
+    public Person(){}
     public Person(String name, int age, String address) {
         this.name = name;
         this.age = age;
@@ -14,9 +16,9 @@ class Person{
     }
 
     public void show(){
-        System.out.println("Name is" + name);
-        System.out.println("Age is" + age);
-        System.out.println("Address is" + address);
+        System.out.println("Name is " + name);
+        System.out.println("Age is " + age);
+        System.out.println("Address is " + address);
     }
 }
 
@@ -29,6 +31,7 @@ class Student extends Person {
         this.grade = grade;
     }
 
+    @Override
     public void show(){
         super.show();
         System.out.println("ID is "+ ID);
@@ -37,29 +40,44 @@ class Student extends Person {
 }
 
 public class ObjectArrayEx {
-    public static void init(Person[] p) {
-        System.out.println("몇 개의 배열을 만들까요?");
-        Scanner sc = new Scanner(System.in);
-        String name;
-        int age;
-
-        for (int i = 0; i < p.length; i++) {
-            System.out.println("이름, 나이, 주소를 입력하세요.");
-            if()
-            p[i] = new Person()
-            p[i] =  new Student()
+    static void init(Person []px) {
+        int n;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("number of objects::");
+        n = scan.nextInt();
+        for (int i = 0; i<n; i++) {
+            px[i] = new Person("홍"+i, i, "김해"+i);
         }
     }
 
-    public void show(Person[] p){
-        for(int i=0; i<2; i++){
-            p[i].show();
+    static void display(Person []px){
+        for(int i=0; i<px.length; i++){
+            px[i].show();
         }
+    }
+
+    static Person[] dostack(Person []px){
+        Stack <Person> stack = new Stack<>();
+        Person []pp = new Person[10];
+        for(int i=0; i<px.length; i++){
+            stack.push(px[i]);
+        }
+        for(int i=0; i<px.length; i++){
+             pp[i] = stack.pop();
+             //stack.pop().show();
+        }
+        return pp;
     }
 
     public static void main(String[] args) {
-        Person[] p = new Person[10];
+        int []  a;
+        Person []p = new Person[10];
+        Person [] result;
         init(p);
-
+        display(p);
+        System.out.println("============");
+        result = dostack(p);
+        //dostack(p);
+        display(result);
     }
 }

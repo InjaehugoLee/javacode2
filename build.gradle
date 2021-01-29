@@ -1,7 +1,8 @@
 apply plugin : 'java'
 apply plugin : 'application'
 
-mainClassName = 'Test.test'
+
+mainClassName = 'com.java.gradle.StudyList'
 
 
 run{
