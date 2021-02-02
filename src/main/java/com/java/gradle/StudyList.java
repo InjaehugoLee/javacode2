@@ -1,20 +1,20 @@
 package com.java.gradle;
-
 import java.util.Random;
 
 class Node {
     private int data;
     Node next;
 
-
     public Node(){
         this.data = 0;
         this.next = null;
     }
+
     public Node(int data){
         this.data = data;
         this.next = null;
     }
+
     public Node getNext(){
         return this.next;
     }
@@ -67,39 +67,50 @@ class List {
         return c;
     };
 
-    public List merge(List l){
-        List c = new List();
+    public List merge(List b){
+        List a = new List();
         Node p = this.first;
-        Node q = l.first;
-        Node r = c.first;
-
+        Node q = b.first;
+        if((p.getData()< q.getData())){
+            a.first=p;
+        }else{
+            a.first=q;
+        }
+        Node pn = p;
+        Node qn = q;
         while(p!=null && q!=null){
-            if(p.getData()<q.getData()){
-                if(p.next.getData()<q.getData()){
-                    c.first = p;
+            if(p.getData()< q.getData()) {
+                if (p.next != null )
+                if ( p.next.getData() < q.getData()) {
+                    pn = p;
                     p = p.next;
-                    continue;
-                } else{
-                    c.first = p;
-                    p = q;
-                    continue;
+                } else {
+                    pn = p;
+                    qn = q;
+                    p = p.next;
+                    pn.next = q;
                 }
-            } else{
-                if(q.next.getData()<p.getData()){
-                    c.first = q;
+                else {p.next = q; p = null;}
+            }
+            else{
+                if (q.next != null)
+                if(p.getData()< q.next.getData()){
+                    pn = p;
+                    qn = q;
                     q = q.next;
-                    continue;
-                }else{
-                    c.first = q;
-                    q = p;
-                    continue;
+                    qn.next = p;
+                }else {
+                    qn = q;
+                    q = q.next;
                 }
+                else {q.next = p; q = null; }
             }
         }
-        return c;
+        return a;
     };
 
     public void insert(int n){
+        // 리스트의 맨 뒤에 n 넣기
         Node x = new Node(n);
         Node p = getFirst();
         Node q = p;
@@ -123,9 +134,9 @@ class List {
             }
             q = p;
             p = p.next;
-
         }
     }
+
     public void show(){
         Node p = getFirst();
         while(p!=null){
@@ -188,13 +199,28 @@ public class StudyList {
                 l[j].show();
             }
         }
+        
+        l[28]=l[30].merge(l[31]);
+        l[26]=l[27].merge(l[29]);
+        l[24]=l[25].merge(l[23]);
+        l[20]=l[21].merge(l[22]);
+        l[18]=l[17].merge(l[19]);
 
-//
-//        int p = 2 * a;
-//        int q = p;
-//        while (p-- > 0)
-//        {
-//            l[p].count
-//        }
+        l[16]=l[18].merge(l[20]);
+        l[15]=l[24].merge(l[26]);
+        l[14]=l[16].merge(l[28]);
+        l[14].show();
+        l[13]=l[15].merge(l[14]);
+
+        l[13].show();
+
+
+
+
+
+
+
+
+
     }
 }
