@@ -2,7 +2,7 @@ apply plugin : 'java'
 apply plugin : 'application'
 
 
-mainClassName = 'com.java.gradle.StudyList'
+mainClassName = 'com.java.gradle.Polynomial'
 
 
 run{

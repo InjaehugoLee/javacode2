@@ -71,7 +71,8 @@ class List {
         List a = new List();
         Node p = this.first;
         Node q = b.first;
-        if((p.getData()< q.getData())){
+        if(this.first==null && b.first==null) return null;
+        if(p.getData()< q.getData()){
             a.first=p;
         }else{
             a.first=q;
@@ -147,7 +148,7 @@ class List {
     }
 }
 
-public class StudyList {
+public class StudyList<top> {
     static void getData(List l, int Size){
         Random r = new Random();
         for(int i =0; i<Size; i++){
@@ -165,62 +166,53 @@ public class StudyList {
 
     public static void main(String[] args) {
         // init
-        int Size=10;
-        List [] l = new List[Size*4];
-        for (int i = 0; i<l.length; i++){
+        int Size = 10;
+        List[] l = new List[Size * 4];
+        for (int i = 0; i < l.length; i++) {
             l[i] = new List();
         }
         getData(l[0], Size);
-        int k =0;
+        int k = 0;
         l[0].show();
         List temp = new List();
         temp = l[0];
-        l[1]= temp;
-        int flag=0;
+        l[1] = temp;
+        int flag = 0;
         int count[] = new int[l.length];
-        count[1]= l[1].count();
-        count[0]=l[0].count();
+        count[1] = l[1].count();
+        count[0] = l[0].count();
+
         // split
         int i = 1;
-        while(flag!=1){
-           l[2 * i + 1] = l[i].Split(l[2 * i]);
-           count[2*i]=l[2*i].count();
-           count[2*i+1]=l[2*i+1].count();
-           count[i]=0;
-           if(check(count)) flag=1;
-           i++;
+        while (flag != 1) {
+            l[2 * i + 1] = l[i].Split(l[2 * i]);
+            count[2 * i] = l[2 * i].count();
+            count[2 * i + 1] = l[2 * i + 1].count();
+            count[i] = 0;
+            if (check(count)) flag = 1;
+            i++;
         }
-
+        int a = 0;
         // show
-        for (int j = 0; j<Size*4; j++){
-            if(l[j].getFirst() == null) continue;
+        for (int j = 0; j < Size * 4; j++) {
+            if (l[j].getFirst() == null) continue;
             else {
-                System.out.print("l["+j+"]" + " ");
+                System.out.print("l[" + j + "]" + " ");
                 l[j].show();
+                a=j;
             }
         }
-        
-        l[28]=l[30].merge(l[31]);
-        l[26]=l[27].merge(l[29]);
-        l[24]=l[25].merge(l[23]);
-        l[20]=l[21].merge(l[22]);
-        l[18]=l[17].merge(l[19]);
-
-        l[16]=l[18].merge(l[20]);
-        l[15]=l[24].merge(l[26]);
-        l[14]=l[16].merge(l[28]);
-        l[14].show();
-        l[13]=l[15].merge(l[14]);
-
-        l[13].show();
-
-
-
-
-
-
-
-
-
+        System.out.println(a);
+//            l[26]=l[27].merge(l[29]);
+//            l[24]=l[25].merge(l[23]);
+//            l[20]=l[21].merge(l[22]);
+//            l[18]=l[17].merge(l[19]);
+//
+//            l[16]=l[18].merge(l[20]);
+//            l[15]=l[24].merge(l[26]);
+//            l[14]=l[16].merge(l[28]);
+//            l[14].show();
+//            l[13]=l[15].merge(l[14]);
+//            l[13].show();
     }
 }
