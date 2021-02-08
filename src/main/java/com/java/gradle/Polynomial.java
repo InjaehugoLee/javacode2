@@ -26,9 +26,11 @@ class Listnode{
     public void setCoef(int a){
         this.coef += a;
     }
-
     public int getExpo(){
         return this.expo;
+    }
+    public void setExpo(int a){
+        this.expo += a;
     }
 }
 
@@ -61,6 +63,7 @@ public class Polynomial {
         }
         pf.next = b;
     }
+
 //
 //    public Polynomial insertPoly(Polynomial B){
 //        Listnode a = this.p;
@@ -108,7 +111,7 @@ public class Polynomial {
         }
     }
 
-    public static Polynomial Add(Polynomial A, Polynomial B){
+    static Polynomial Add(Polynomial A, Polynomial B){
         Listnode a = A.first;
         Listnode b = B.first;
         Polynomial C = new Polynomial();
@@ -128,7 +131,6 @@ public class Polynomial {
                 b=b.next;
             }
         }
-
         while(a!=null){
             C.insert(a.getCoef(), a.getExpo());
             a=a.next;
@@ -139,6 +141,27 @@ public class Polynomial {
         }
         return C;
     }
+
+    static Polynomial Multi(Polynomial A, Polynomial B){
+        Listnode a = A.first;
+        Listnode b = B.first;
+        Listnode ae = a;
+        Listnode be = b;
+        Polynomial C = new Polynomial();
+        while(ae!=null){
+            while(be!=null){
+                int coeff, expo;
+                coeff = ae.getCoef() * be.getCoef();
+                expo = ae.getExpo() + be.getExpo();
+                C.insert(coeff, expo);
+                be = be.next;
+            }
+            be = b;
+            ae = ae.next;
+        }
+        return C;
+    }
+
     static void makePolynomial(Polynomial A){
         Random r = new Random();
         int coef, expo;
@@ -152,13 +175,21 @@ public class Polynomial {
     public static void main(String[] args) {
         Polynomial A = new Polynomial();
         makePolynomial(A);
+        System.out.print("f(x)= ");
         A.show();
 
         Polynomial B = new Polynomial();
         makePolynomial(B);
+        System.out.print("g(x)= ");
         B.show();
 
+        System.out.println("f(x)와 g(x)의 합은");
         Polynomial C = Add(A, B);
         C.show();
+
+        Polynomial D = new Polynomial();
+        D =Multi(A, B);
+        System.out.println("f(x)와 g(x)의 곱은");
+        D.show();
     }
 }
